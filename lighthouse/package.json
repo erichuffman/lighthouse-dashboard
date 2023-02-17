@@ -14,5 +14,8 @@
   "dependencies": {
     "lighthouse": "^10.0.1"
   },
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": "16"
+  }
 }
