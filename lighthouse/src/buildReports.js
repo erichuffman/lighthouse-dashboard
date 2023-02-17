@@ -11,8 +11,8 @@ async function writeLocalFiles(results, id) {
       });
     }
     // Create directory for the json versions of reports.
-    if (!existsSync(`../src/report-data/`)) {
-      mkdirSync(`../src/report-data/`, { recursive: true }, error => {
+    if (!existsSync(`../public/reports/data/`)) {
+      mkdirSync(`../public/reports/data/`, { recursive: true }, error => {
         if (error) console.error(`Error creating report-data directory.`, error);
       });
     }
@@ -21,7 +21,7 @@ async function writeLocalFiles(results, id) {
       if (err) throw err;
     });
     // Create JSON report file.
-    writeFile(`../src/report-data/${id}_${currentTime}.json`, results.report[1], err => {
+    writeFile(`../public/reports/data/${id}_${currentTime}.json`, results.report[1], err => {
       if (err) throw err;
     });
   }

@@ -1,10 +1,15 @@
-import data from './report-data/manifest.json'
-import { Accordion, AccordionItem } from '@cmsgov/ds-medicare-gov';
+import { useEffect, useState } from 'react';
+import { Accordion, AccordionItem, ArrowIcon } from '@cmsgov/ds-medicare-gov';
 import ScoreCard from './components/ScoreCard';
+import ScoreBadge from './components/ScoreBadge';
 
-function buildHTMLreportURL(file, ext = 'html') {
+function buildReportURL(file, ext = 'html') {
   const fileName = file.split('.');
+  if (ext === 'json') {
+    return `reports/data/${fileName[0]}.${ext}`;
+  }
   return `reports/${fileName[0]}.${ext}`;
+
 }
 
 function buildReportDate(file) {
@@ -18,27 +23,34 @@ function buildReportDate(file) {
 
 function ReportListItem({file}) {
   return (
-    <li>
-      <a href={buildHTMLreportURL(file)}>{buildReportDate(file)}</a>
+    <li className="ds-u-padding-y--1 ds-u-display--flex ds-u-align-items--center">
+      <a href={buildReportURL(file)}>{buildReportDate(file)}</a>
+      <ArrowIcon />
+      <ScoreBadge file={buildReportURL(file, 'json')} /> 
     </li>
   )
 }
 
-function reportWrapperClass(index, length) {
-  if (index < length) {
-    return 'ds-u-border--2 ds-u-border--dark ds-u-padding--4 ds-u-margin-bottom--2';
-  }
-  else {
-    return 'ds-u-border--2 ds-u-border--dark ds-u-padding--4';
-  }
-}
-
 function App() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('./reports/data/manifest.json')
+    .then(response => {
+      return response.json();
+    }).then(data => {
+      setData(data);
+      console.log('useEffect data output', data);
+    }).catch((e) => {
+      console.log(e.message);
+    });
+  }, []);
+
   return (
     <>
-      <h1 className="ds-text-heading--3xl">Performance Reports: <a href="https://www.medicare.gov">Medicare.gov</a></h1>
-      {data.map((item, index) => (
-        <article key={item.id} className={reportWrapperClass(index, data.length - 1)}>
+      <h1 className="ds-text-heading--3xl ds-u-text-align--center ds-u-margin-y--3">Performance Reports: <a href="https://www.medicare.gov">Medicare.gov</a></h1>
+      {data && data.map((item, index) => (
+        <article key={item.id} className="ds-u-border--2 ds-u-border--dark ds-u-padding--4 ds-u-margin-bottom--2">
           <h2 className="ds-text-heading--2xl ds-u-margin-top--0">{item.title}</h2>
           <ScoreCard
             file={item.reports[item.reports.length - 1]}
@@ -47,7 +59,7 @@ function App() {
           />
           <Accordion className="ds-u-margin-top--4" bordered openItems={[0]}>
             <AccordionItem contentClassName="reports-list" heading="Past Reports">
-              <ul>
+              <ul className="ds-c-list--bare">
                 {item.reports.slice(0).reverse().map((report, index) => (
                   index > 0 && <ReportListItem key={report} file={report.replace('.json', '')} />
                 ))}

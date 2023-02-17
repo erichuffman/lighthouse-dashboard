@@ -6,7 +6,7 @@ function buildManifest() {
   for (const item of urls) {
     manifest.push({id: item.id, title: item.title, reports: []});
   }
-  readdir(`../src/report-data/`, (err, files) => {
+  readdir(`../public/reports/data/`, (err, files) => {
     if (err) {
       return console.log(`Unable to read reports directory: ` + err);
     }
@@ -21,10 +21,10 @@ function buildManifest() {
         })
       }
     });
-    writeFile(`../src/report-data/manifest.json`, JSON.stringify(manifest), err => {
+    writeFile(`../public/reports/data/manifest.json`, JSON.stringify(manifest), err => {
       if (err) throw err;
     });
-    console.log('✅ Report manifest updated.', manifest);
+    console.log('✅ Report manifest updated.');
   });
 }
 
