@@ -19,7 +19,7 @@ function ScoreCard({file, title, date}) {
     .then(response => {
       return response.json();
     }).then(data => {
-      setScore(data.categories.performance.score * 100);
+      setScore(Math.round(data.categories.performance.score * 100));
     }).catch((e) => {
       console.log(e.message);
     });

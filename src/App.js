@@ -40,7 +40,6 @@ function App() {
       return response.json();
     }).then(data => {
       setData(data);
-      console.log('useEffect data output', data);
     }).catch((e) => {
       console.log(e.message);
     });
@@ -49,7 +48,7 @@ function App() {
   return (
     <>
       <h1 className="ds-text-heading--3xl ds-u-text-align--center ds-u-margin-y--3">Performance Reports: <a href="https://www.medicare.gov">Medicare.gov</a></h1>
-      {data && data.map((item, index) => (
+      {data && data.map((item) => (
         <article key={item.id} className="ds-u-border--2 ds-u-border--dark ds-u-padding--4 ds-u-margin-bottom--2">
           <h2 className="ds-text-heading--2xl ds-u-margin-top--0">{item.title}</h2>
           <ScoreCard
@@ -57,7 +56,7 @@ function App() {
             title={item.title}
             date={buildReportDate(item.reports[item.reports.length - 1].replace('.json', ''))}
           />
-          <Accordion className="ds-u-margin-top--4" bordered openItems={[0]}>
+          {item.reports.length > 1 && <Accordion className="ds-u-margin-top--4" bordered openItems={[0]}>
             <AccordionItem contentClassName="reports-list" heading="Past Reports">
               <ul className="ds-c-list--bare">
                 {item.reports.slice(0).reverse().map((report, index) => (
@@ -65,9 +64,10 @@ function App() {
                 ))}
               </ul>
             </AccordionItem>
-          </Accordion>
+          </Accordion>}
         </article>
       ))}
+      {!data && <h2 className="ds-u-text-align--center"><em>No reports generated. See README for how to generage reports.</em></h2>}
     </>
   );
 }
