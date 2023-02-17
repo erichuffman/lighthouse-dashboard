@@ -1,0 +1,18 @@
+{
+  "name": "cms-mgov-lighthouse-reporter",
+  "version": "1.0.0",
+  "description": "Lighthouse report generator",
+  "main": "runReport.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "runReports": "node src/runReports.js",
+    "buildManifest": "node src/buildManifest.js",
+    "lighthouse": "npm run runReports && npm run buildManifest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lighthouse": "^10.0.1"
+  },
+  "type": "module"
+}
