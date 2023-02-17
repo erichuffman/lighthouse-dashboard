@@ -1,11 +1,17 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+# This workflow will do a clean installation of node dependencies,
+# trigger a lighthouse run, build the dashboard, and deploy it to
+# the gh-pages branch.
 
-name: Node.js CI
+name: Node.js CI - Lighthouse run and github pages deploy
+
+# on:
+#   schedule:
+#     - cron: '10 20 * * 5'
 
 on:
-  schedule:
-    - cron: '10 20 * * 5'
+  push:
+    branches:
+      - main
 
 jobs:
   lh-build-and-deploy:
@@ -24,12 +30,12 @@ jobs:
           npm ci
           npm --prefix lighthouse ci
       
-      - name: Lighthouse Runs and Build
+      - name: Lighthouse Runs and Build Dashboard
         run: |
           npm run lighthouse
           npm run build
         
-      - name: Deploy
+      - name: Deploy Dashboard
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
           branch: gh-pages
