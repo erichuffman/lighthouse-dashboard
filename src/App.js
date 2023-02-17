@@ -47,7 +47,9 @@ function App() {
 
   return (
     <>
-      <h1 className="ds-text-heading--3xl ds-u-text-align--center ds-u-margin-y--3">Performance Reports: <a href="https://www.medicare.gov">Medicare.gov</a></h1>
+      <h1 className="ds-text-heading--3xl ds-u-text-align--center ds-u-margin-y--3">
+        Performance Report: {data && <a href={data[0].report_title_url}>{data[0].report_title}</a>}
+      </h1>
       {data && data.map((item) => (
         <article key={item.id} className="ds-u-border--2 ds-u-border--dark ds-u-padding--4 ds-u-margin-bottom--2">
           <h2 className="ds-text-heading--2xl ds-u-margin-top--0">{item.title}</h2>

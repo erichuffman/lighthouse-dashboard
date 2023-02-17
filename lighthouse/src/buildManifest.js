@@ -1,10 +1,10 @@
-import { urls } from './config.js';
+import { urls, reportInfo } from './config.js';
 import { readdir, writeFile } from 'fs';
 
 function buildManifest() {
   const manifest = [];
   for (const item of urls) {
-    manifest.push({id: item.id, title: item.title, reports: []});
+    manifest.push({report_title: reportInfo.title, report_title_url: reportInfo.title_url, id: item.id, title: item.title, reports: []});
   }
   readdir(`../public/reports/data/`, (err, files) => {
     if (err) {

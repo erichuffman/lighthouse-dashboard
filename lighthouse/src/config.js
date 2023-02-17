@@ -17,6 +17,11 @@ const urls = [
   }
 ]
 
+const reportInfo = {
+  title: 'Medicare.gov',
+  title_url: 'https://www.medicare.gov'
+}
+
 // Chrome options.
 const lhOpts = {
   output: ['html', 'json'],
@@ -25,5 +30,6 @@ const lhOpts = {
 
 export {
   urls,
+  reportInfo,
   lhOpts,
 }
