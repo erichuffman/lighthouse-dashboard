@@ -4,6 +4,9 @@
 
 name: Node.js CI - Lighthouse run and github pages deploy
 
+permissions:
+  contents: write
+
 # on:
 #   schedule:
 #     - cron: '10 20 * * 5'
@@ -36,7 +39,6 @@ jobs:
           npm run build
         
       - name: Deploy Dashboard
-        uses: JamesIves/github-pages-deploy-action@3.6.2
+        uses: JamesIves/github-pages-deploy-action@4
         with:
-          branch: gh-pages
           folder: build
