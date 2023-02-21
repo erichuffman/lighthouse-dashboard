@@ -26,20 +26,10 @@ jobs:
           node-version-file: 'package.json'
 
       - name: Install Packages
-        run: |
-          npm --prefix lighthouse ci
-          npm ci
+        run: npm --prefix lighthouse ci
 
       - name: Lighthouse Run
         run: npm run lighthouse
-
-      - name: Build Dashboard
-        run: npm run build
-
-      - name: Deploy Dashboard
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build
         
       - name: Commit Lighthouse reports
         uses: stefanzweifel/git-auto-commit-action@v4
