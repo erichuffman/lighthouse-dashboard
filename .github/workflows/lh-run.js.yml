@@ -38,6 +38,7 @@ jobs:
           push_options: --force
 
   update-dashboard:
+    needs: lighthouse-run
     runs-on: ubuntu-latest
 
     permissions:
