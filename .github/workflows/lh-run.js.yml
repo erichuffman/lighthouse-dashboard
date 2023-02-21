@@ -5,7 +5,7 @@ name: Node.js CI - Complete a Lighthouse run.
 
 on:
   schedule:
-    - cron: '20 1,4 * * *'
+    - cron: '20 0,2 * * *'
 
 jobs:
   lighthouse-run:
@@ -33,3 +33,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Adding Lighthouse reports
+          push_options: --force
