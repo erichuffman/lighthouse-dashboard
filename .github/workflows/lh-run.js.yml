@@ -3,9 +3,11 @@
 
 name: Node.js CI - Complete a Lighthouse run.
 
-on:
-  schedule:
-    - cron: '20 0,2 * * *'
+# on:
+#   schedule:
+#     - cron: '20 0,2 * * *'
+
+on: workflow_dispatch
 
 jobs:
   lighthouse-run:
