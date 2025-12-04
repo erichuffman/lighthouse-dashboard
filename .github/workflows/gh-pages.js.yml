@@ -5,7 +5,7 @@ name: Node.js CI - Github pages deployment
 
 on:
   schedule:
-    - cron: '5 4 * * *'
+    - cron: '5 4 1 * *'
 
 # on: workflow_dispatch
 
